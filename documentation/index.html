@@ -1,0 +1,322 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<head lang="en">
+	<meta http-equiv="content-type" content="text/html;charset=utf-8">
+	<title>Category Colors Documentation</title>
+	<!-- Framework CSS -->
+	<link rel="stylesheet" href="assets/blueprint-css/screen.css" type="text/css" media="screen, projection">
+	<link rel="stylesheet" href="assets/blueprint-css/print.css" type="text/css" media="print">
+	<!--[if lt IE 8]><link rel="stylesheet" href="assets/blueprint-css/ie.css" type="text/css" media="screen, projection"><![endif]-->
+	<link rel="stylesheet" href="assets/blueprint-css/plugins/fancy-type/screen.css" type="text/css" media="screen, projection">
+	<style type="text/css" media="screen">
+		p, table, hr, .box { margin-bottom:25px; }
+		.box p { margin-bottom:10px; }
+	</style>
+</head>
+
+
+<body>
+	<div class="container">
+	
+		<h3 class="center alt">&ldquo;Category Colors - Wordpress plugin&rdquo; Documentation by &ldquo;Atypisch (Marten Timan)&rdquo; v1.1</h3>
+		
+		<hr>
+		<center><img src="assets/images/catcolors-preview.jpg" alt="Category Colors" /></center>
+		<br />
+		<!--<h1 class="center">&ldquo;Category Colors&rdquo;</h1>-->
+		
+		<div class="borderTop">
+			<div class="span-6 colborder info prepend-1">
+				<p class="prepend-top">
+					<strong>
+					Created: 16/09/2013<br>
+					By: Marten Timan, Atypisch webdesign & webdevelopment<br>
+					Email: <a href="mailto:marten@atypisch.nl">marten@atypisch.nl</a>
+					</strong>
+				</p>
+			</div><!-- end div .span-6 -->		
+	
+			<div class="span-12 last">
+				<p class="prepend-top append-0">Thank you for purchasing my plugin. If you have any questions that are beyond the scope of this help file, please feel free to email via my user page contact form <a href="http://codecanyon.net/user/atypisch">here</a>. Thanks so much!</p>
+			</div>
+		</div><!-- end div .borderTop -->
+		
+		<hr>
+		
+		<h2 id="toc" class="alt">Table of Contents</h2>
+		<ol class="alpha">
+			<li><a href="#installation">Installation instructions</a></li>
+			<li><a href="#htmlStructure">Template Usage</a></li>
+			<li><a href="#addingcolors">Changing and adding Colors to your Categories</a></li>
+			<li><a href="#Files">PHP File functions and Structure</a></li>
+			<li><a href="#javascript">JavaScript</a></li>
+			<li><a href="#phpcode">PHP Code Explanation</a></li>
+			<li><a href="#credits">About this Plugin</a></li>
+		</ol>
+		
+		
+		<h3 id="installation"><strong>A) Installation instructions </strong> - <a href="#toc">top</a></h3>
+		<p>
+		Just copy this plugin (the entire 'category-colors' folder) into your Wordpress plugins directory. Then go 
+		to your plugin section in the Wordpress CMS and click 'Activate'. 
+		</p>	
+		
+		<hr>
+		
+		<h3 id="htmlStructure"><strong>B) Template Usage</strong> - <a href="#toc">top</a></h3>
+		
+		<p>
+		To call the color from witin your template you need to retrieve the Category ID first. In your template use this code within <a href="http://codex.wordpress.org/The_Loop" target="_blank">the loop</a>:
+		</p>	  
+			   
+		<pre>
+		<code><&#63;php  
+		&#36;category = get_the_category(); 
+		&#36;the_category_id = &#36;category[0]->cat_ID;
+		&#63;> </code>
+		</pre>
+		
+		<p>
+		There is a more extensive explanation below in the <a href="#phpcode">PHP Code explanation</a> section.
+		Now you call the Category Colors function and use the Category variable to retrieve the Category Color.
+		</p>
+		
+		<pre>
+		<code><&#63;php 
+		if(function_exists('cc_get_color')) { 
+			&#36;category_color = cc_get_color(&#36;the_category_id); 
+		} 
+		&#63;></code>
+		</pre>
+		
+		</p>
+		Use the output color as a background, to color your fonts, lines or anything you want. In the code example below we add the output to an inline CSS rule like so: <pre><code>style="color: #<&#63;php echo $category_color; &#63;>;" </code></pre> This results (in this case) in a colored Title.
+		</p>
+		<img src="assets/images/htmlstructure.png" alt="Code example" />
+		
+		
+
+		<p>You can use the variable <code><&#63;php &#36;category_color; &#63;></code> anywhere in your template file after you ran the function. 
+		Now you can spice up your Posts and Categories with your own custom colors, have fun!</p> 
+
+		
+		<hr>
+		
+		<h3 id="addingcolors"><strong> C) Changing and adding Colors to your Categories</strong> - <a href="#toc">top</a></h3>
+		
+		<p>
+		After the plugin is installed and activated it will add two items to your Wordpress	CMS. <br />
+		<br />
+		<b>1)</b> In the <b>Edit</b> section of your Post Categories a new field is added labeled 'Choose your Category Color', 
+		showing the current color set to your Category. You cannot choose a color directly when creating a category because we want to keep creating categories sweet and simple :-) <br />
+		Click on the textfield for the jQuery Colorpicker to appear. The screenshot below shows an example. 
+		</p>
+		
+		<img src="assets/images/colorpicker-example.jpg" alt="Colorpicker example" />
+		<p>
+		After you have clicked the update button, your Category Color is updated. You will be taken to the Category overview section and will see this message:
+		</p>
+		<img src="assets/images/colorpicker-updated.jpg" alt="Colorpicker updated" />
+		
+		
+		<p>
+		<b>2)</b> in Settings -> Category Colors you can change the default Category Color and will also see some information about the plugin.
+		</p>
+	
+		
+		<p>
+		For a more detailed description of how this functionality works check the <a href="documentation.pdf">PDF</a> in the documentation section of this plugin, or look <a href="http://www.atypisch.nl/plugins/category-colors/">online</a> at the plugin page.   
+		</p>
+		
+		<hr>
+
+		<h3 id="Files"><strong>D) PHP File functions and Structure</strong> - <a href="#toc">top</a></h3>
+
+		<p>
+		<b>Functions</b><br />
+		The plugin consists of one simple PHP file ('cc-index.php') which contains all the necessary PHP functions and includes for this plugin. These are the functions briefly explained;
+		</p>
+			
+	<pre>
+	
+	/* === Database functions === */
+
+	cc_check($the_cat_id, $cat_color);
+	Checks if a value exists. If so it will run the cc_update_db() function, if not is will run the cc_write_db() function.
+
+	cc_write_db($the_cat_id,$cat_color);
+	Writes a color value and a category Id value to the database.
+	
+	cc_update_db($the_cat_id,$cat_color);
+	Updates category color value $cat_color to an existing category id.
+	
+	cc_get_color($the_cat_id);
+	Main color function; returns the category color from a category id
+	
+	cc_createtable();
+	if table does not exists it will create a databse table 'category colors'
+	
+	/* === Plugin functions === */
+	
+	cc_add_page();
+	adds Wordpress functionality; adds scripts, option page and create table function
+	
+	cc_add_picker();
+	adds the jQuery colorpicker forms and gets default color
+	
+	cc_options_page();
+	adds the Category Colors options page under settings -> Category Colors
+	
+	cc_admin_head();
+	Enqueues the CSS and jQuery scripts in the heading of the page
+	
+	</pre>
+	
+	<p>
+	<b>Structure</b><br />
+	This is the basic structure of the plugin and the containing files, starting from the plugin folder 'category-colors'.
+		<ul>
+			<li>cc-index.php <small>(main plugin file)</small></li>
+			<li>documentation <small>(folder)</small>
+				<ul>
+					<li>assets <small>(folder)</small>
+						<ul>
+							<li>...<small>blueprint css files and images for this explanation file</small></li>
+						</ul>
+					</li>
+					<li>code-example.php <small>(a small PHP code example)</small></li>
+					<li>documentation.pdf <small>(an extra documentation file)</small></li>
+					<li>index.html <small>(this file)</small></li>
+					<li>picker-icon.png <small>(extra icon to use in explanation)</small></li>
+					<li>screenshots <small>(folder)</small>
+						<ul>
+							<li>... <small>(screenshots 1 t/m 7)</small></li>
+						</ul>
+					</li>
+				</ul>
+			</li>
+			<li>jquery-colorpicker <small>(folder)</small> 
+				<ul>
+					<li>css <small>(folder, contains 2 CSS files that will be queued in the admin header)</small></li>
+					<li>images <small>(folder)</small></li>
+					<li>index.html <small>(file showing examples of the jQuery Colorpicker usage)</small></li>
+					<li>js <small>(folder containing all necessary jQuery files and library)</small></li>
+				</ul>
+			</li>
+		</ul>		
+	</p>
+		
+	<p>Please do not edit or extend these functions.</p> 
+
+		<hr>
+		
+		<h3 id="javascript"><strong>E) JavaScript</strong> - <a href="#toc">top</a></h3>
+		
+		<p>This theme imports several Javascript files including a minified jQuery library (v1.9.1), all part of the jQuery Colorpicker Plugin.</p>
+		
+		<ol>
+			<li>The jQuery library and Colorpicker plugin</li>
+			<li>My custom jQuery scripts</li>
+		</ol>
+		  
+		<ol>
+			<li><a href="http://jquery.com/">jQuery</a> is a Javascript library that greatly reduces the amount of code that you must write.</li>
+			<li>I have written a small jQuery script to add to the Options page, which simply toggles a class in a <div> to open or close it. It looks like this;
+	<pre>jQuery(document).ready( function($) {
+		$("div.postbox h3").click(function () { $(this).parent(".postbox").toggleClass("closed"); });
+	});
+	</pre>
+			</li>
+			
+		</ol>
+		
+		<hr>
+		
+		
+		<h3 id="phpcode"><strong>F) PHP Code explanation</strong> - <a href="#toc">top</a></h3>
+		<p>This plugin (Category Colors) comes with a standard PHP function you can use within your Wordpress Templates. This function is called <code><&#63;php cc_get_color( &#36;the_category_id ); &#63;></code>, where <code>&#36;the_category_id </code> is obviously the Category ID, 
+		and the output is the color you have given it through the plugin. This output is a <a href="http://www.w3schools.com/html/html_colors.asp">Hex Color code</a> consisting of 6 figures (I.E. #000000, #35ff00, #e3e4e5, etc). You can use this code in your CSS in combination with a '#' to show your color. 
+		</p>
+		
+		
+		<p>
+		To call the color from witin your template you need to retrieve the Category ID first. 
+		There are several ways to get it. <br />You can get the Category ID by Category Name like so: <code><&#63;php get_cat_ID( &#36;cat_name ); &#63;> </code> (more info online <a href="http://codex.wordpress.org/Function_Reference/get_cat_ID">here</a> ). <br />
+		You can also retrieve the Category ID through an Array. In your template use this code within <a href="http://codex.wordpress.org/The_Loop" target="_blank">the loop</a>:
+		</p>	  
+			   
+		<pre>
+		<code><&#63;php  
+		&#36;category = get_the_category(); 
+		&#36;the_category_id = &#36;category[0]->cat_ID;
+		&#63;> </code>
+		</pre>
+		
+		<p>
+		Note that you now only retrieve the first given Category in the variable <code>&#36;the_category_id</code>. To retrieve multiple Category IDs just add more variables.  For instance,
+		<code>&#36;the_category_id2 = &#36;category[1]->cat_ID; &#36;the_category_id3 = &#36;category[2]->cat_ID;</code> etc. More info online <a href="http://codex.wordpress.org/Function_Reference/get_the_category">here</a>.
+		<br />Now you call the Category Colors function and use the Category variable to retrieve the Category Color.
+		</p>
+		
+		<pre>
+		<code><&#63;php 
+		if(function_exists('cc_get_color')) { 
+			&#36;category_color = cc_get_color(&#36;the_category_id); 
+		} 
+		&#63;></code>
+		</pre>
+		
+		</p>
+		Use the output color as a background, to color your fonts, lines or anything you want. In the code example below we add the output to an inline CSS rule like so:
+		<pre><code>style="color: #<&#63;php echo $category_color; &#63;>;" </code></pre>
+		</p>
+		<hr>
+		
+		<h3 id="credits"><strong>G) About this Plugin</strong> - <a href="#toc">top</a></h3>
+		
+		<p>
+			   type: Wordpress Plugin <br>
+			   languages: PHP, HTML, CSS, MySQL and jQuery javascript, and Colorpicker library <br>
+			   version nr: 1.1 <br>
+			   release date: 16/09/2013 <br>
+			   This plugin is compatible with all newer versions of Wordpress, tested up to Wordpress version 3.6.1 <br>
+			   Plugin documentation URL: <a href="http://www.atypisch.nl/plugins/category-colors/">http://www.atypisch.nl/plugins/category-colors/</a> <br>
+			   </p>
+				
+			
+			   <p>
+
+			   This plugin is entirely written by <a href="http://nl.linkedin.com/in/mtiman/">Marten Timan</a>, owner and founder of <a href="http://www.atypisch.nl">Atypisch</a> Webdesign & Webdevelopment currently based in Utrecht, The Netherlands.
+			   <br /><br />
+			   Please feel free to make a donation to stimulate further development of this or other plugins.
+			   </p>
+				
+			   <form action="https://www.paypal.com/cgi-bin/webscr" method="post" target="_top">
+				<input type="hidden" name="cmd" value="_s-xclick">
+				<input type="hidden" name="hosted_button_id" value="AQTXT72XD49JS">
+				<input type="image" src="https://www.paypalobjects.com/en_US/i/btn/btn_donateCC_LG.gif" border="0" name="submit" alt="PayPal - The safer, easier way to pay online!">
+				<img alt="" border="0" src="https://www.paypalobjects.com/nl_NL/i/scr/pixel.gif" width="1" height="1">
+			   </form>
+
+			  <br />
+			  <br />
+		 
+		
+		
+		<hr>
+		
+		
+		<p>Once again, thank you so much for purchasing this plugin. As I said at the beginning, I'd be glad to help you if you have any questions relating to this theme. 
+		No guarantees, but I'll do my best to assist. 
+		If you have a more general question relating to the plugins on CodeCanyon, you might consider visiting the forums and asking your question in the "Item Discussion" section.</p> 
+		
+		<p class="append-bottom alt large"><strong>Marten Timan</strong><br /> Atypisch webdesign & webdevelopment</p>
+		<p><a href="#toc">Go To Table of Contents</a></p>
+		
+		<hr class="space">
+		
+		
+		
+		
+	</div><!-- end div .container -->
+</body>
+</html>
