@@ -1,0 +1,12 @@
+{
+    "name": "atypisch/category-colors",
+    "description": "Wordpress category-colors plugin",
+    "type": "wordpress-plugin",
+    "authors": [
+        {
+            "name": "Marten Timan",
+            "email": "marten@atypisch.nl"
+        }
+    ],
+    "require": {}
+}
