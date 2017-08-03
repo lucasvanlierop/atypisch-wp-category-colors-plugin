@@ -13,10 +13,10 @@ add_action('admin_menu', 'cc_add_page');
 add_action('edit_category_form_fields', 'cc_add_picker');
 
 //define your variables
-$cat_id = $_GET['tag_ID'];
-$the_cat_id = $_POST['the_cat_id'];
-$cat_color = $_POST['colorpickerField1'];
-$default_cat_color = $_POST['default_colorpickerField'];
+$cat_id = isset($_GET['tag_ID']) ?  $_GET['tag_ID'] : '';
+$the_cat_id =  isset($_POST['the_cat_id']) ? $_POST['the_cat_id'] : '' ;
+$cat_color = isset($_POST['colorpickerField1']) ? $_POST['colorpickerField1'] : '';
+$default_cat_color = isset($_POST['default_colorpickerField']) ? $_POST['default_colorpickerField'] : '';
 //get plugin url
 $plugin_url = plugin_dir_url( __FILE__ );
 $colorpicker_icon = '<img src="' . $plugin_url . 'documentation/picker_icon.jpg" />';
