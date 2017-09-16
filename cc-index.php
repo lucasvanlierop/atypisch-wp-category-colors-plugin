@@ -106,7 +106,7 @@ function cc_add_page() {
 	add_action( "admin_print_scripts-$mypage", 'cc_admin_head' );
 		
 	//add options page under settings
-	$hook = add_options_page('Category Colors', 'Category Colors', 7, __FILE__, 'cc_options_page');
+	$hook = add_options_page('Category Colors', 'Category Colors', 'level_7', __FILE__, 'cc_options_page');
 	
 	//add the scripts to the options page as well
 	add_action( 'admin_print_scripts-' . $hook, 'cc_admin_head' );
